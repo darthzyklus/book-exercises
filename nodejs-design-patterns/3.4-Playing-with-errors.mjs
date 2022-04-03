@@ -14,14 +14,12 @@ function ticker(number, cb) {
     eventEmitter.emit('tick', ticks)
     ticks += 1
 
-    setTimeout(() => {
-      if (ticks * 50 >= number) {
-        eventEmitter.emit('finished', ticks)
-        return cb(null, ticks)
-      }
+    if (ticks * 50 >= number) {
+      eventEmitter.emit('finished', ticks)
+      return cb(null, ticks)
+    }
 
-      tick()
-    }, 50)
+    setTimeout(tick, 50)
   }
 
   process.nextTick(tick)
